@@ -1,20 +1,7 @@
 import openai from '../config/openai';
-import Database, { Movie, Rating, MovieEnrichment } from '../config/database';
-
-export interface UserPreferences {
-  userId: number;
-  favoriteGenres: string[];
-  averageRating: number;
-  preferredEmotionalTones: string[];
-  budgetPreference: string;
-  summary: string;
-}
-
-export interface Recommendation {
-  movie: Movie & Partial<MovieEnrichment>;
-  score: number;
-  reasoning: string;
-}
+import Database from '../config/database';
+import { UserPreferences } from '../models/userPreferences';
+import { Recommendation } from '../models/recommendation';
 
 export class RecommendationService {
   private db: Database;

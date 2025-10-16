@@ -2,7 +2,7 @@ import Database from '../config/database';
 import { EnrichmentService } from '../services/enrichmentService';
 import { config } from '../config/env';
 
-async function main() {
+export const main = async () => {
   console.log('=== Movie Enrichment Script ===\n');
 
   // Initialize database

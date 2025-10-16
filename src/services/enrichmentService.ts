@@ -1,12 +1,8 @@
 import openai from '../config/openai';
-import Database, { Movie, MovieEnrichment } from '../config/database';
-
-interface EnrichmentInput {
-  movie: Movie;
-  avgRating: number;
-  ratingCount: number;
-  companyROI: number | null;
-}
+import Database from '../config/database';
+import { Movie } from '../models/movie';
+import { MovieEnrichment } from '../models/movieEnrichment';
+import { EnrichmentInput } from '../models/enrichmentInput';
 
 export class EnrichmentService {
   private db: Database;

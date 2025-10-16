@@ -1,38 +1,9 @@
 import sqlite3 from 'sqlite3';
 import { promisify } from 'util';
 import path from 'path';
-
-export interface Movie {
-  movieId: number;
-  imdbId: string;
-  title: string;
-  overview: string;
-  productionCompanies: string;
-  releaseDate: string;
-  budget: number;
-  revenue: number;
-  runtime: number;
-  language: string;
-  genres: string;
-  status: string;
-}
-
-export interface Rating {
-  ratingId: number;
-  userId: number;
-  movieId: number;
-  rating: number;
-  timestamp: number;
-}
-
-export interface MovieEnrichment {
-  movieId: number;
-  awardPotential: string;
-  popularityQualityIndex: number;
-  emotionalGenres: string;
-  productionCompanyRollingROI: number | null;
-  productionEffectivenessScore: number;
-}
+import { Movie } from '../models/movie';
+import { Rating } from '../models/rating';
+import { MovieEnrichment } from '../models/movieEnrichment';
 
 class Database {
   private moviesDb: sqlite3.Database;
