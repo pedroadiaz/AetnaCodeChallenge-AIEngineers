@@ -167,6 +167,7 @@ Respond ONLY with valid JSON in this exact format (no markdown, no extra text):
           content: prompt
         }
       ],
+      response_format: { type: "json_object" },
       temperature: 0.3,
       max_tokens: 500
     });

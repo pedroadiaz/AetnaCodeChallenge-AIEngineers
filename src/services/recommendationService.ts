@@ -80,6 +80,7 @@ Respond ONLY with valid JSON in this exact format:
           content: prompt
         }
       ],
+      response_format: { type: "json_object" },
       temperature: 0.3,
       max_tokens: 800
     });
@@ -179,17 +180,18 @@ Respond ONLY with valid JSON array of recommended movie IDs and reasoning:
           content: prompt
         }
       ],
+      response_format: { type: "json_object" },
       temperature: 0.5,
       max_tokens: 1500
     });
 
-    const content = response.choices[0].message.content?.trim() || '[]';
+    const content = response.choices[0].message.content || '[]';
 
     try {
-      const parsed = JSON.parse(content);
+      const parsed = JSON.parse(content) as  { recommendations: Recommendation[] } ;
 
       const recommendations: Recommendation[] = [];
-      for (const rec of parsed.slice(0, count)) {
+      parsed.recommendations.slice(0, count).forEach((rec: any) => {
         const movie = candidateMovies.find(m => m.movieId === rec.movieId);
         if (movie) {
           recommendations.push({
@@ -198,11 +200,10 @@ Respond ONLY with valid JSON array of recommended movie IDs and reasoning:
             reasoning: rec.reasoning || 'Recommended based on your preferences'
           });
         }
-      }
+      });
 
       return recommendations;
     } catch (error) {
-      console.error('Error parsing LLM response:', content);
       throw new Error('Failed to generate recommendations');
     }
   }
@@ -269,6 +270,7 @@ Format your response in a clear, user-friendly way. You can return JSON or plain
           content: prompt
         }
       ],
+      response_format: { type: "json_object" },
       temperature: 0.4,
       max_tokens: 1500
     });
@@ -367,6 +369,7 @@ Respond with a detailed, structured comparison in JSON format:
           content: prompt
         }
       ],
+      response_format: { type: "json_object" },
       temperature: 0.4,
       max_tokens: 2000
     });
